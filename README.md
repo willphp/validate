@@ -48,20 +48,20 @@ validate组件能快速实现表单验证处理
 	captcha		验证码
 	unique		唯一验证 如:unique:user,id (id为表主键）
 	user		用户名及长度 如：user:5,20
-	pwd			密码格式及长度 如：pwd:5,20
+	pwd		密码格式及长度 如：pwd:5,20
 	length		长度范围(位数) 如 :length:5,20
-	max			最大长度 如：max:10
-	min			最小长度 如：min:10
+	max		最大长度 如：max:10
+	min		最小长度 如：min:10
 	between		数字范围 如：between:1,9
 	regex		正则 如：regex:/^\d{5,20}$/ 
 	confirm		字段值比对 如：confirm:repassword
 	alpha		包含[中文，字母，数字，-_]
 	number		纯数字(不包含负数和小数点)
 	float		浮点数
-	url			网址
+	url		网址
 	email		电子邮箱
 	phone		手机号
-	qq			QQ号
+	qq		QQ号
 	idcard		身份证号
 	bankcard	银行卡号
 
@@ -80,7 +80,7 @@ validate组件能快速实现表单验证处理
 	2	值不为空时
 	3	必须处理 (默认)
 	4	值为空时
-	5   不存在字段时处理
+	5       不存在字段时处理
 
 ####增加规则
 
