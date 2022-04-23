@@ -15,18 +15,18 @@ a:hover{text-decoration:none}
 .error-page-container{position:relative;z-index:1}
 .error-page-main{position:relative;background:#f9f9f9;margin:0 auto;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:25px 30px 30px 30px}
 .error-page-main:before{content:'';display:block;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmkAAAAHCAIAAADcck2GAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACFSURBVHja7NWhDgFxHMDxOxNsNGc22aaZKXZZ5KKX8Fye498VgUJDEq6QCDbdI/zu83mDb/rm1XaXNcBkvXl+8vCZnUu63uvwmYtqdXt3w2eOXufD/hg+c1bOH71x+MzBtz6lFD6zGPbb02UTntLKAADvBADvBADvBADvBADvBAD+/QQYAPeEFhyocrThAAAAAElFTkSuQmCC);height:7px;position:absolute;top:-7px;width:100%;left:0} 
-.error-page-main h3{font-size:24px;color:#333;font-weight:400;padding-bottom:20px;border-bottom:1px dashed #999}
+.error-page-main h3{font-size:24px;color:#a94442;font-weight:400;padding-bottom:20px;border-bottom:1px dashed #999}
 .error-page-main h3 strong{font-size:54px;font-weight:400;margin-right:20px}
 .error-page-head{text-align:right}
 .error-page-head a{font-size:14px;color:#999}
-.error-page-body{padding:15px 0}
-.error-page-body li{font-size:15px;line-height:23px;color:#a94442}
-.error-page-body p{font-size:14px;line-height:25px;color:#a94442}
-.error-page-body h4{font-size:18px;padding:5px 0 20px 0;font-weight:400;color:#a94442}
+.error-page-body{padding-top:10px}
+.error-page-body p{font-size:14px;padding:10px 0;color:#666;line-height:25px;}
+.error-page-body p b{color:#4288ce}
 .error-page-foot{padding:15px 0 25px 0;border-top:1px dashed #999}
 .error-page-foot a{float:right;height:30px;line-height:30px;padding:0 15px;margin:0;font-size:14px;border:none;margin-left:5px;}
 .error-page-foot a.green{background:#89bf43;color:#fff}
 .error-page-foot a.blue {background:#4288ce;color:#fff}
+.error-page-foot span{float:right;height:30px;line-height:30px;padding:0 15px;margin:0;font-size:14px;} 
 .error-page-actions{font-size:0;z-index:100}
 .error-page-actions:before{content:'';display:block;position:absolute;z-index:-1;bottom:17px;left:50px;width:200px;height:10px;-moz-box-shadow:4px 5px 31px 11px #999;-webkit-box-shadow:4px 5px 31px 11px #999;box-shadow:4px 5px 31px 11px #999;-moz-transform:rotate(-4deg);-webkit-transform:rotate(-4deg);-ms-transform:rotate(-4deg);-o-transform:rotate(-4deg);transform:rotate(-4deg)}
 .error-page-actions:after{content:'';display:block;position:absolute;z-index:-1;bottom:17px;right:50px;width:200px;height:10px;-moz-box-shadow:4px 5px 31px 11px #999;-webkit-box-shadow:4px 5px 31px 11px #999;box-shadow:4px 5px 31px 11px #999;-moz-transform:rotate(4deg);-webkit-transform:rotate(4deg);-ms-transform:rotate(4deg);-o-transform:rotate(4deg);transform:rotate(4deg)}
@@ -41,21 +41,30 @@ a:hover{text-decoration:none}
         	<?php } else { ?>
         	<div class="error-page-head" style="display:none;"><a href="http://www.113344.com" title="willphp官网" target="_blank">WillPHP</a></div>
         	<?php } ?>	
-			<h3><strong>:(</strong>验证失败</h3>			
+			<h3><strong>:(</strong><?php echo $error; ?></h3>			
 			<div class="error-page-body">
-				<ol>
-				<?php foreach ($errors as $err): ?>			
-				<li><?php echo $err; ?></li>	
-				<?php endforeach; ?>
-				</ol>
-			</div>
+				<p>页面自动 <a id="href" href="javascript:history.back(-1);">跳转</a> 等待时间： <b id="wait">5</b> 秒</p>
+			</div>			
 			<div class="error-page-foot">
 				<a href="<?php echo trim('http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']), '/\\');?>" class="green">返回首页</a>
-				<a href="javascript:history.back(-1);" class="blue">返回上一页</a>
+				<a id="href" href="javascript:history.back(-1);" class="blue">确认</a>				
 			</div>			
 		</div>
 		<div class="error-page-actions"></div>		
 	</div>		
 </div>
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),
+            href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>
 </body>
 </html>

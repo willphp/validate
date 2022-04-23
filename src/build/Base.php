@@ -71,7 +71,7 @@ class Base extends ValidateRule {
 					if (method_exists($this, $method)) {
 						//类方法验证
 						if ($this->$method($validate[0], $value, $params, $data) !== true) {
-							$this->error[$fieldName] .= '<br/>'.$validate[2];
+							$this->error[$fieldName] = $validate[2];
 						}
 					} else if (isset($this->validate[$method])) {
 						$callback = $this->validate[$method];
@@ -82,9 +82,14 @@ class Base extends ValidateRule {
 							}
 						}
 					}
-					$this->error[$fieldName] = trim($this->error[$fieldName],'<br/>');
+					if (!empty($this->error[$fieldName])) {
+						break;
+					}
 				}
 			}
+			if (!empty($this->error[$fieldName])) {
+				break;
+			}			
 		}		
 		$this->error = array_filter($this->error);		
 		//验证返回信息处理
@@ -111,22 +116,30 @@ class Base extends ValidateRule {
 					case 'redirect':
 						header("Location:".$_SERVER['HTTP_REFERER']);
 						die;
-					case 'show':						
-						$template = Config::get('validate.template');
-						if (!file_exists($template)) {
-							$template =  __DIR__.'/../view/validate.php';
-						}
-						ob_start();
-						include $template;
-						$res = ob_get_clean();						
-						exit($res);
+					case 'show':							
+						echo $this->show($errors);							
+						die;
 					default:
 						return false;
 				}				
 			}
 		}		
 		return true;
-	}	
+	}
+	/**
+	 * 显示验证模板
+	 * @param $error 错误信息
+	 */
+	protected function show($errors = '') {		
+		$error = is_array($errors)? current($errors) : $errors;		
+		$template = Config::get('validate.template');
+		if (!file_exists($template)) {
+			$template =  __DIR__.'/../view/validate.php';
+		}
+		ob_start();
+		include $template;
+		return ob_get_clean();
+	}
 	/**
 	 * 添加验证闭包
 	 * @param $name
