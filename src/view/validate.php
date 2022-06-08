@@ -36,11 +36,7 @@ a:hover{text-decoration:none}
 <div class="error-page">
     <div class="error-page-container">    	
         <div class="error-page-main">
-        	<?php if (defined('WILLPHP_VERSION')) { ?>
-        	<div class="error-page-head"><a href="http://www.113344.com" title="willphp官网" target="_blank">WillPHPv<?php echo WILLPHP_VERSION; ?></a></div>
-        	<?php } else { ?>
-        	<div class="error-page-head" style="display:none;"><a href="http://www.113344.com" title="willphp官网" target="_blank">WillPHP</a></div>
-        	<?php } ?>	
+        	<div class="error-page-head" style="display:none;"><a href="http://www.113344.com" title="willphp官网" target="_blank">一鱼PHP框架</a></div>        	
 			<h3><strong>:(</strong><?php echo $error; ?></h3>			
 			<div class="error-page-body">
 				<p>页面自动 <a id="href" href="javascript:history.back(-1);">跳转</a> 等待时间： <b id="wait">5</b> 秒</p>
